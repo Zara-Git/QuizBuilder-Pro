@@ -1,0 +1,81 @@
+﻿<UserControl x:Class="QuizGame.Views.PlayQuizView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d">
+
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <!-- Title -->
+            <RowDefinition Height="Auto"/>
+            <!-- Quiz picker -->
+            <RowDefinition Height="Auto"/>
+            <!-- Game panel -->
+            <RowDefinition Height="Auto"/>
+            <!-- Result panel -->
+            <RowDefinition Height="*"/>
+            <!-- Spacer -->
+            <RowDefinition Height="Auto"/>
+            <!-- Score -->
+        </Grid.RowDefinitions>
+
+        <!-- Page title -->
+        <TextBlock Grid.Row="0" Text="Spela quiz" FontSize="28" FontWeight="Bold"/>
+
+        <!-- Dropdown to choose quiz -->
+        <ComboBox Grid.Row="1" Width="260" Margin="0,12,0,12"
+                  ItemsSource="{Binding Quizzes}"
+                  DisplayMemberPath="Name"
+                  SelectedItem="{Binding SelectedQuiz}"/>
+
+        <!-- Game panel: visible while playing -->
+        <StackPanel Grid.Row="2">
+            <StackPanel.Style>
+                <Style TargetType="StackPanel">
+                    <Setter Property="Visibility" Value="Visible"/>
+                    <Style.Triggers>
+                        <!-- Hide when game is over -->
+                        <DataTrigger Binding="{Binding IsGameOver}" Value="True">
+                            <Setter Property="Visibility" Value="Collapsed"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </StackPanel.Style>
+
+            <!-- Question text -->
+            <TextBlock Text="{Binding CurrentQuestion.Text}"
+                       FontSize="18" Margin="0,8,0,12" TextWrapping="Wrap"/>
+
+            <!-- Answer buttons -->
+            <Button Content="{Binding CurrentQuestion.Answers[0]}" Tag="0" Click="Answer_Click" Margin="0,6"/>
+            <Button Content="{Binding CurrentQuestion.Answers[1]}" Tag="1" Click="Answer_Click" Margin="0,6"/>
+            <Button Content="{Binding CurrentQuestion.Answers[2]}" Tag="2" Click="Answer_Click" Margin="0,6"/>
+        </StackPanel>
+
+        <!-- Result panel: visible when game is over -->
+        <StackPanel Grid.Row="3">
+            <StackPanel.Style>
+                <Style TargetType="StackPanel">
+                    <Setter Property="Visibility" Value="Collapsed"/>
+                    <Style.Triggers>
+                        <!-- Show when game is over -->
+                        <DataTrigger Binding="{Binding IsGameOver}" Value="True">
+                            <Setter Property="Visibility" Value="Visible"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </StackPanel.Style>
+
+            <!-- Result text and restart button -->
+            <TextBlock Text="{Binding ResultText}"
+                       FontSize="18" FontWeight="Bold" Margin="0,12" TextWrapping="Wrap"/>
+            <Button Content="Spela igen" Width="150" Click="Restart_Click"/>
+        </StackPanel>
+
+        <!-- Score counter -->
+        <TextBlock Grid.Row="5" Text="{Binding ScoreText}"
+                   FontWeight="Bold" Margin="0,20,0,0"/>
+    </Grid>
+</UserControl>

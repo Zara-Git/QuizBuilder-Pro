@@ -1,0 +1,58 @@
+﻿<UserControl x:Class="QuizGame.Views.CreateQuizView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             d:DesignHeight="500" d:DesignWidth="500">
+
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <Grid Margin="15">
+            <StackPanel>
+                <!-- Rubrik för sidan -->
+                <TextBlock Text="Create new quiz" FontSize="22" FontWeight="Bold" Margin="0,0,0,15"/>
+
+                <!-- Quiz-namn (uppdaterar VM direkt vid varje tangenttryck) -->
+                <TextBlock Text="Quiz name:"/>
+                <TextBox Text="{Binding QuizName, UpdateSourceTrigger=PropertyChanged}"
+                         Width="250" Margin="0,0,0,12"/>
+
+                <!-- Frågetext -->
+                <TextBlock Text="Question:"/>
+                <TextBox Text="{Binding QuestionText, UpdateSourceTrigger=PropertyChanged}"
+                         Margin="0,0,0,6"/>
+
+                <!-- Tre svarsalternativ -->
+                <TextBlock Text="Answer 1:"/>
+                <TextBox Text="{Binding Answer1, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,0,6"/>
+
+                <TextBlock Text="Answer 2:"/>
+                <TextBox Text="{Binding Answer2, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,0,6"/>
+
+                <TextBlock Text="Answer 3:"/>
+                <TextBox Text="{Binding Answer3, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,0,6"/>
+
+                <!-- Korrekt index (begränsas i code-behind med PreviewTextInput) -->
+                <TextBlock Text="Correct index (0,1,2):"/>
+                <TextBox Text="{Binding CorrectIndex, UpdateSourceTrigger=PropertyChanged}"
+                         Width="60" Margin="0,0,0,12"
+                         ToolTip="0 = first answer, 1 = second, 2 = third"
+                         PreviewTextInput="CorrectIndex_PreviewTextInput"/>
+
+                <!-- Åtgärdsknappar: lägg till fråga / spara quiz -->
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,12">
+                    <Button Content="Add question" Width="120" Click="AddQuestion_Click"/>
+                    <Button Content="Save quiz" Width="120" Margin="10,0,0,0" Click="SaveQuiz_Click"/>
+                </StackPanel>
+
+                <!-- Lista över frågor som ska sparas (visar Question.Text) -->
+                <TextBlock Text="Questions in this quiz:" FontWeight="Bold" Margin="0,5,0,5"/>
+                <ListBox ItemsSource="{Binding NewQuestions}" DisplayMemberPath="Text" Height="140"/>
+
+                <!-- Befintliga quiz i filen (visar Quiz.Name) -->
+                <TextBlock Text="Existing quizzes:" FontWeight="Bold" Margin="0,15,0,5"/>
+                <ListBox ItemsSource="{Binding ExistingQuizzes}" DisplayMemberPath="Name" Height="120"/>
+            </StackPanel>
+        </Grid>
+    </ScrollViewer>
+</UserControl>

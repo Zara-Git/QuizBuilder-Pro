@@ -1,0 +1,26 @@
+﻿# Visual Studio
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Build outputs
+bin/
+obj/
+[Bb]uild/
+x64/
+x86/
+[Aa]rtifacts/
+
+# NuGet
+packages/
+*.nupkg
+*.snupkg
+
+# Logs / temp
+*.log
+*.tmp
+
+# VS index files
+*.vsidx

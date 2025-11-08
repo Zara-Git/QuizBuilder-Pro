@@ -1,0 +1,21 @@
+﻿<Window x:Class="QuizGame.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:views="clr-namespace:QuizGame.Views"
+        Title="Quiz Game" Height="500" Width="900">
+
+    <DockPanel>
+        <!-- Top menu -->
+        <StackPanel Orientation="Horizontal"
+                    DockPanel.Dock="Top"
+                    Background="#eee"
+                    Margin="0,0,0,10">
+            <Button Content="Play" Width="90" Margin="0 0 10 0" Click="Play_Click"/>
+            <Button Content="Create" Width="90" Margin="0 0 10 0" Click="Create_Click"/>
+            <Button Content="Edit" Width="90" Click="Edit_Click"/>
+        </StackPanel>
+
+        <!-- This is where pages will load -->
+        <ContentControl x:Name="MainContent" />
+    </DockPanel>
+</Window>
